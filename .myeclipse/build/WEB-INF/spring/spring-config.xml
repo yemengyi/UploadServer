@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xmlns="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <!-- Data Source -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName">
+	       <value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+	    </property>
+	    <property name="url">
+	        <value>proxool.uploadserver</value>
+	    </property>
+    </bean>
+
+    <!-- 配置SqlSessionFactoryBean -->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+		<!-- mapper配置路径 -->
+		<property name="mapperLocations">
+			<list>
+				<!-- 表示在com/lbs/demo/mapper/包或以下所有目录中，以.xml结尾所有文件 -->
+				<value>classpath:cn/amsoft/upload/mapper/**/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+    <!-- Data Access Objects -->
+    <context:annotation-config />   
+    
+    <!-- 注入bean -->     
+    <context:component-scan base-package="cn.amsoft.upload.dao"/>
+    <context:component-scan base-package="cn.amsoft.upload.service"/>
+    
+    <!-- 给DWR方法用的  用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 -->  
+    <bean class="cn.amsoft.upload.service.SpringContextHolder" lazy-init="false" />  
+    
+    
+
+</beans>

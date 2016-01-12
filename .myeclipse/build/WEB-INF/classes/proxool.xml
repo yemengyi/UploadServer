@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<something-else-entirely>
+	<proxool>
+		<alias>uploadserver</alias>
+		 <driver-url>jdbc:oracle:thin:@172.30.1.3:1521:ORCL</driver-url>
+		<driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
+		<driver-properties>
+			<property name="user" value="spbx" />
+			<property name="password" value="pass" />
+		</driver-properties> 
+		
+		<!--<driver-url>jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF-8</driver-url>
+		<driver-class>org.gjt.mm.mysql.Driver</driver-class>
+		<driver-properties>
+			<property name="user" value="root" />
+			<property name="password" value="123456" />
+		</driver-properties> -->
+		
+		
+		<maximum-connection-count>100</maximum-connection-count>
+		<maximum-connection-lifetime>300000</maximum-connection-lifetime>
+		<minimum-connection-count>10</minimum-connection-count>
+		<overload-without-refusal-lifetime>3000</overload-without-refusal-lifetime>
+		<prototype-count>10</prototype-count>
+		<maximum-active-time>7200000</maximum-active-time>
+		<test-before-use>true</test-before-use>
+		<house-keeping-sleep-time> 30000</house-keeping-sleep-time>
+		<house-keeping-test-sql>select 1 from dual</house-keeping-test-sql>
+		<!-- <house-keeping-test-sql>select SYSDATE()</house-keeping-test-sql> -->
+		<simultaneous-build-throttle>20</simultaneous-build-throttle>
+	</proxool>
+</something-else-entirely>
